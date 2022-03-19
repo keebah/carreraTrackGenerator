@@ -23,14 +23,14 @@ class trackGenerator():
         return
     
     def drawStraight(self, x, y, heading):
-        length = 34.5
+        length = 345
         x.append(x[-1] + length * math.sin(heading[-1]))
         y.append(y[-1] + length * math.cos(heading[-1]))
         
         return x, y
     
     def drawCorner(self, x, y, heading, direction):
-        length = 31.105
+        length = 311.05
         drawSteps = 6
         # draw a cricle in steps of 10deg => 60deg total for corner
         for i in range(drawSteps):
@@ -51,6 +51,26 @@ class trackGenerator():
         
         plt.show()
    
+    def calculateLaneLength(self):
+        leftLane = 0
+        rightLane = 0
+        for elem in self.trackLayout:
+            if elem == 's':
+                leftLane += 345
+                rightLane += 345
+            if elem == 'l':
+                leftLane += 259.2
+                rightLane += 362.9
+            if elem == 'r':
+                leftLane += 362.9
+                rightLane += 259.2
+            if elem == 'x':
+                temp = rightLane
+                rightLane = leftLane + 364.2
+                leftLane = temp + 364.2
+                
+        return leftLane, rightLane
+    
     def drawTrack(self):
         x = [0]
         y = [0]
@@ -122,11 +142,11 @@ g = trackGenerator()
 # g.drawTrack()
 # g.plotTrack()
 
-g.runOpti()
+# g.runOpti()
 
-g.trackLayout = [char for char in g.validTracks[3]]
-g.drawTrack()
-g.plotTrack()
+# g.trackLayout = [char for char in g.validTracks[3]]
+# g.drawTrack()
+# g.plotTrack()
 
 # nSegmentsStraight = 14
 # nSegmentsCorner = 16
