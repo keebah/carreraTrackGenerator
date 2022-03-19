@@ -12,9 +12,9 @@ class trackGenerator():
     
     def __init__(self):
         # self.trackLayout = ['s','s','r','r','r','s','s','r','r','r']
-        self.trackLayout=['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s']   # carrera evolution basic layout
-        self.trackLayout = ['s','r','r','s','r','s','l','x','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','x','s']
-        self.trackLayout = ['s','r','r','s','r','s','l','s','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
+        self.trackLayout = ['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s']   # carrera evolution basic layout
+        self.trackLayout = ['s','r','r','s','r','s','l','x','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
+        # self.trackLayout = ['s','r','r','s','r','s','l','s','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
         self.coordinates = {'x': [],
                             'y': [],
                             'xDot': [],
@@ -134,6 +134,19 @@ class trackGenerator():
                 self.validTracks.append(trackString)
 
         
+    def optimizeLaneChange(self):
+        # where should the second lane change go to minimize the delta between lane length
+        position = []
+        
+        for i in range(len(self.trackLayout)):
+            if self.trackLayout[i] == 's':
+                self.trackLayout[i] = 'x'
+                sLeft, sRight = g.calculateLaneLength()
+                position.append([i, sLeft-sRight])
+                self.trackLayout[i] = 's'
+        
+        
+        return position
     
 g = trackGenerator()
 
@@ -145,6 +158,10 @@ g.drawTrack()
 g.plotTrack()
 print(g.checkValid())
 print(g.calculateLaneLength())
+
+
+p = g.optimizeLaneChange()
+
 
 # g.runOpti()
 
