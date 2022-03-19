@@ -1,4 +1,4 @@
-# carreraTrackGenerator
+# Carrera Track Generator
 Small tool to generate very simple tracks for carrera evolution model race track system
 
 # Track Layout definition
