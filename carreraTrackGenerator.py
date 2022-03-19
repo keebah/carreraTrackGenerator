@@ -12,7 +12,9 @@ class trackGenerator():
     
     def __init__(self):
         # self.trackLayout = ['s','s','r','r','r','s','s','r','r','r']
-        self.trackLayout=['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s']        
+        self.trackLayout=['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s']   # carrera evolution basic layout
+        self.trackLayout = ['s','r','r','s','r','s','l','x','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','x','s']
+        self.trackLayout = ['s','r','r','s','r','s','l','s','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
         self.coordinates = {'x': [],
                             'y': [],
                             'xDot': [],
@@ -78,7 +80,7 @@ class trackGenerator():
         xDot = [0]
         yDot = [0]
         for elem in self.trackLayout:
-            if elem == 's':
+            if elem == 's' or elem == 'x':
                 x, y = self.drawStraight(x, y, heading)
             else:
                 x, y = self.drawCorner(x, y, heading, elem)
@@ -95,7 +97,7 @@ class trackGenerator():
         return
 
     def checkValid(self):
-        if abs(self.coordinates["x"][-1]) < 1 and abs(self.coordinates["y"][-1]) < 1 and abs(self.coordinates["a"][-1]) < 1:
+        if abs(self.coordinates["x"][-1]) < 10 and abs(self.coordinates["y"][-1]) < 10 and abs(self.coordinates["a"][-1]) < 10:
                return True
            
         return False
@@ -135,12 +137,14 @@ class trackGenerator():
     
 g = trackGenerator()
 
-# g.drawTrack()
+g.drawTrack()
 # print(g.checkValid())
 # t = g.buildTrack()
 # g.trackLayout = t
 # g.drawTrack()
-# g.plotTrack()
+g.plotTrack()
+print(g.checkValid())
+print(g.calculateLaneLength())
 
 # g.runOpti()
 
