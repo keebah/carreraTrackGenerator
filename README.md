@@ -13,6 +13,8 @@ A track layout defined as ['r','r','r','r','r','r'] would therefore be a full ci
 
 # Validity checking
 A valid track is one where the start and end points are identical. Also the heading of the vehicle should be identical. This is the case for a heading as multitudes of a full circle. Assuming starting with 0 valid headings for the last point of the track are -360, 0, 360, ... Typical race tracks do have a heading of either -360 or 360 deg. An well-known example of a racetrack with a heading of 0 is Suzuka. https://de.wikipedia.org/wiki/Suzuka_International_Racing_Course.
+
+# Fairness checking
 The driver cannot chose the driving lane at the entry level carrera kit. To ensure fairness the track should therefore be equal length for the left and right corners. This is the case for a heading being 0. The check validity function of the tool is checking for the start and end point to be equal and the heading to be 0.
 
 # Search function
