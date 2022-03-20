@@ -24,6 +24,7 @@ from matplotlib import pyplot as plt
 import math
 from random import randint
 
+
 class ctgModel():
     
     def __init__(self):
@@ -146,9 +147,33 @@ class ctgModel():
         
         
         return position
-    
+
     @staticmethod
     def drawTrack(trackLayout):
+        def drawStraight(x, y, heading):
+            length = 345
+            x.append(x[-1] + length * math.sin(heading[-1]))
+            y.append(y[-1] + length * math.cos(heading[-1]))
+            heading.append(heading[-1])
+            
+            return x, y, heading
+        
+        def drawCorner(x, y, heading, direction):
+            length = 311.05
+            drawSteps = 6
+            # draw a cricle in steps of 10deg => 60deg total for corner
+            for i in range(drawSteps):
+                if direction == 'l':
+                    heading.append(heading[-1] - 1/drawSteps * math.pi/3)
+                if direction == 'r':
+                    heading.append(heading[-1] + 1/drawSteps * math.pi/3)
+                    
+                meanHeading = (heading[-2]+heading[-1])/2
+                x.append(x[-1] + length/drawSteps * math.sin(meanHeading))
+                y.append(y[-1] + length/drawSteps * math.cos(meanHeading))
+                
+            return x, y, heading        
+        
         x = [0]
         y = [0]
         heading = [0]
@@ -156,38 +181,12 @@ class ctgModel():
         yDot = [0]
         for elem in trackLayout:
             if elem == 's' or elem == 'x':
-                x, y, heading = ctgModel.drawStraight(x, y, heading)
+                x, y, heading = drawStraight(x, y, heading)
             else:
-                x, y, heading = ctgModel.drawCorner(x, y, heading, elem)
+                x, y, heading = drawCorner(x, y, heading, elem)
                 
             xDot.append(x[-1])
             yDot.append(y[-1])
      
         
         return  {"x": x, "y": y, "a": heading, "xDot": xDot, "yDot": yDot}
-    
-    @staticmethod
-    def drawStraight(x, y, heading):
-        length = 345
-        x.append(x[-1] + length * math.sin(heading[-1]))
-        y.append(y[-1] + length * math.cos(heading[-1]))
-        heading.append(heading[-1])
-        
-        return x, y, heading
-    
-    @staticmethod
-    def drawCorner(x, y, heading, direction):
-        length = 311.05
-        drawSteps = 6
-        # draw a cricle in steps of 10deg => 60deg total for corner
-        for i in range(drawSteps):
-            if direction == 'l':
-                heading.append(heading[-1] - 1/drawSteps * math.pi/3)
-            if direction == 'r':
-                heading.append(heading[-1] + 1/drawSteps * math.pi/3)
-                
-            meanHeading = (heading[-2]+heading[-1])/2
-            x.append(x[-1] + length/drawSteps * math.sin(meanHeading))
-            y.append(y[-1] + length/drawSteps * math.cos(meanHeading))
-            
-        return x, y, heading
