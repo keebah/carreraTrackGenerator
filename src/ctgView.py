@@ -85,3 +85,9 @@ class ctgView(QMainWindow):
         self.ctgCtrl.findTrack()
         self.gui["trackList"].insertItem(len(self.ctgModel.tracks), 
                                          self.ctgModel.tracks[len(self.ctgModel.tracks)-1]["name"])
+
+    def designTrack(self, option):
+        self.currentTrack = self.ctgCtrl.designTrack(self.currentTrack, option)
+        self.windows["trackplt"].clearMap()
+        self.windows["trackplt"].plotMap()
+        self.gui["trackProps"].updateLabels()

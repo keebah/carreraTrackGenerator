@@ -25,7 +25,19 @@ class ctgCtrl():
         self.settings = {"forceTrackCrossing": True}
         return
 
-                
+    def designTrack(self, track, toAdd):
+        if toAdd == 'undo':
+            track["layout"].pop()  
+        else:
+            track["layout"].append(toAdd)
+
+        track["coords"] = self.ctgModel.drawTrack(track["layout"])
+        l,r,c = self.ctgModel.calculateLength(track)
+        track["length"] = {'left': l, 'right': r, 'center': c}
+        
+        return track
+        
+        
     def findTrack(self):
         
         validTracksFound = 0

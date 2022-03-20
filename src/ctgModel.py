@@ -53,7 +53,7 @@ class ctgModel():
                                    'xDot': [],
                                    'yDot': [],
                                    'a': []},
-                        'length': {'left','right','center'}},                       
+                        'length': {'left','right','center'}},                              
                        ]
         
         self.availableParts = {'straight': 12,
@@ -94,8 +94,12 @@ class ctgModel():
         xDot = [0]
         yDot = [0]
         for elem in trackLayout:
-            if elem == 's' or elem == 'x':
+            if elem == 's':
                 x, y, heading = drawStraight(x, y, heading)
+            elif elem == 'x':
+                x, y, heading = drawStraight(x, y, heading)
+                xDot.append((x[-1]-x[-2])/2+x[-2])
+                yDot.append((y[-1]-y[-2])/2+y[-2])                
             else:
                 x, y, heading = drawCorner(x, y, heading, elem)
                 
