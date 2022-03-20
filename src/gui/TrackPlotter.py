@@ -13,10 +13,10 @@ from matplotlib.figure import Figure
 
 class TrackPlotter(QWidget):
     
-    def __init__(self, coords):
+    def __init__(self, ctgView):
         super().__init__()
         self.layout = QGridLayout(self)
-        self.coords = coords
+        self.ctgView = ctgView
         
         self.plotArea = MplCanvas(self, width=5, height=4, dpi=100)
         self.layout.addWidget(self.plotArea, 0, 0, 1, 2)
@@ -29,14 +29,11 @@ class TrackPlotter(QWidget):
         self.layout.addWidget(btnPlot, 1, 0, 1, 1)
         self.layout.addWidget(btnClear, 1, 1, 1, 1)
         self.setLayout(self.layout)
-        
-        
-                  
-        
-        
+
     def plotMap(self):
-        self.plotArea.axes1.plot(self.coords["x"],self.coords["y"])
-        self.plotArea.axes1.plot(self.coords["xDot"],self.coords["yDot"], 'x', linewidth=0)
+        coords = self.ctgView.currentTrack["coords"]
+        self.plotArea.axes1.plot(coords["x"],coords["y"])
+        self.plotArea.axes1.plot(coords["xDot"],coords["yDot"], 'x', linewidth=0)
         self.plotArea.fig.canvas.draw()
         
     def clearMap(self):
