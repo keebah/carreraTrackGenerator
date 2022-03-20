@@ -28,9 +28,6 @@ from random import randint
 class ctgModel():
     
     def __init__(self):
-        # self.trackLayout = ['s','s','r','r','r','s','s','r','r','r']
-        self.trackLayout = ['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s']   # carrera evolution basic layout
-        self.trackLayout = ['s','r','r','s','r','s','l','x','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
         self.tracks = [{'name': 'Wohnzimmer',
                         'layout': ['s','r','r','s','r','s','l','x','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s'],
                         'coords': {'x': [],
@@ -53,34 +50,12 @@ class ctgModel():
                                    'yDot': [],
                                    'a': []}},                        
                        ]
-        # self.trackLayout = ['s','r','r','s','r','s','l','s','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
-        self.coordinates = {'x': [],
-                            'y': [],
-                            'xDot': [],
-                            'yDot': [],
-                            'a': []}
         
         self.availableParts = {'straight': 12,
                                'corner': 16,
                                'laneChange': 2}
-        
-        self.validTracks = []
+
         return
-    
-
-   
-    def plotTrack(self):
-       
-        plt.plot(self.coordinates["x"],self.coordinates["y"])
-        plt.plot(self.coordinates["xDot"],self.coordinates["yDot"], 'x', linewidth=0)
-        
-        plt.show()
-   
-
-    
-
-
-
     
     def buildTrack(self):
         nS = self.availableParts["straight"]
