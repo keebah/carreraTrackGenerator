@@ -38,6 +38,8 @@ class ctgCtrl():
             
             if self.ctgModel.checkValid(track, self.settings["forceTrackCrossing"]):
                 track["name"] = track["id"]
+                l,r,c = self.ctgModel.calculateLength(track)
+                track["length"] = {'left': l, 'right': r, 'center': c}
                 validTracksFound += 1
                 self.ctgModel.tracks.append(track)
 

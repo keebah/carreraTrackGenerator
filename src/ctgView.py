@@ -25,11 +25,16 @@ class ctgView(QMainWindow):
         self.ctgCtrl = ctgCtrl()
         self.ctgModel = self.ctgCtrl.ctgModel
         self.ctgModel.tracks[0]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[0]["layout"])
-        l,r,c = self.ctgModel.calculateLength(self.ctgModel.tracks[0]["layout"])
+        l,r,c = self.ctgModel.calculateLength(self.ctgModel.tracks[0])
         self.ctgModel.tracks[0]["length"] = {'left': l, 'right': r, 'center': c}
         
         self.ctgModel.tracks[1]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[1]["layout"])
+        l,r,c = self.ctgModel.calculateLength(self.ctgModel.tracks[1])
+        self.ctgModel.tracks[1]["length"] = {'left': l, 'right': r, 'center': c}
+        
         self.ctgModel.tracks[2]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[2]["layout"])
+        l,r,c = self.ctgModel.calculateLength(self.ctgModel.tracks[2])
+        self.ctgModel.tracks[2]["length"] = {'left': l, 'right': r, 'center': c}
         
         print(self.ctgModel.checkValid(self.ctgModel.tracks[0], True))
         print(self.ctgModel.checkValid(self.ctgModel.tracks[1], True))
@@ -53,17 +58,12 @@ class ctgView(QMainWindow):
         # register windows
         self.windows = {"trackplt": TrackPlotter(self)}
 
-        # track list
-
-        
         # menubar
-        MenuBar(self)
-        
+        MenuBar(self)        
         
         # main window ocntent
         self.setCentralWidget(MainGUI(self))        
 
-        
         self.show()
         
         return
