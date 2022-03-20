@@ -86,5 +86,10 @@ class ctgView(QMainWindow):
 
         return
 
-
+    
+    
+    def findTrack(self):
+        self.ctgCtrl.findTrack()
+        self.gui["trackList"].insertItem(len(self.ctgModel.tracks), 
+                                         self.ctgModel.tracks[len(self.ctgModel.tracks)-1]["name"])
 
