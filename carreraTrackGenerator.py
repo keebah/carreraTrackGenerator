@@ -21,6 +21,10 @@ class trackGenerator():
                             'yDot': [],
                             'a': []}
         
+        self.availableParts = {'straight': 12,
+                               'corner': 16,
+                               'laneChange': 2}
+        
         self.validTracks = []
         return
     
@@ -103,11 +107,12 @@ class trackGenerator():
         return False
     
     def buildTrack(self):
-        nS = 14
-        nC = 16
+        nS = self.availableParts["straight"]
+        nC = self.availableParts["corner"]
+        nX = self.availableParts["laneChange"]
         track = ''
         while len(track) < 30:
-            r = randint(0,2)
+            r = randint(0,3)
             if r == 0:
                 if nS:
                     nS -= 1
@@ -120,6 +125,10 @@ class trackGenerator():
                 if nC:
                     nC -= 1
                     track += 'r'
+            elif r == 3:
+                if nX:
+                    nX -= 1
+                    track += 'x'
         return [char for char in track], track
                 
     def runOpti(self):
