@@ -24,6 +24,12 @@ class ctgView(QMainWindow):
         self.ctgModel = ctgModel()
         self.ctgModel.tracks[0]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[0]["layout"])
         self.ctgModel.tracks[1]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[1]["layout"])
+        self.ctgModel.tracks[2]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[2]["layout"])
+        
+        print(self.ctgModel.checkValid(self.ctgModel.tracks[0]))
+        print(self.ctgModel.checkValid(self.ctgModel.tracks[1]))
+        print(self.ctgModel.checkValid(self.ctgModel.tracks[2]))
+        
         
         self.gui = {}
 

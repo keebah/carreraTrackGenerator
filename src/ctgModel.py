@@ -44,7 +44,14 @@ class ctgModel():
                                    'y': [],
                                    'xDot': [],
                                    'yDot': [],
-                                   'a': []}},                       
+                                   'a': []}},          
+                       {'name': 'SmallCircle',
+                        'layout': ['s','l','l','l','s','l','l','l'],
+                        'coords': {'x': [],
+                                   'y': [],
+                                   'xDot': [],
+                                   'yDot': [],
+                                   'a': []}},                        
                        ]
         # self.trackLayout = ['s','r','r','s','r','s','l','s','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s']
         self.coordinates = {'x': [],
@@ -91,11 +98,7 @@ class ctgModel():
     
 
 
-    def checkValid(self):
-        if abs(self.coordinates["x"][-1]) < 10 and abs(self.coordinates["y"][-1]) < 10 and abs(self.coordinates["a"][-1]) < 10:
-               return True
-           
-        return False
+
     
     def buildTrack(self):
         nS = self.availableParts["straight"]
@@ -190,3 +193,13 @@ class ctgModel():
      
         
         return  {"x": x, "y": y, "a": heading, "xDot": xDot, "yDot": yDot}
+
+    @staticmethod
+    def checkValid(track):
+        if len(track["layout"]) >= 8:
+            if abs(track["coords"]["x"][-1]) < 10 and \
+               abs(track["coords"]["y"][-1]) < 10 and \
+               abs(track["coords"]["a"][-1] % (2*math.pi)) < 10:
+                   return True
+           
+        return False
