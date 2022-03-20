@@ -1,9 +1,25 @@
 # -*- coding: utf-8 -*-
 """
-Spyder Editor
+Created on Sun Mar 20 11:15:42 2022
 
-This is a temporary script file.
+Carrera Track Generator class
+
+properties:
+    - track layout: list of strings describing a carrera track layout
+      - s: straight (345mm long)
+      - c: corner with 60deg radius
+      - x: lane change
+    - coordinates: dictionary 
+      - x,y: list of coordinates used to plot the track centerline
+      - xDot,yDot: list of coordinates to plot the physical part intersections
+      - a: heading angle of the element
+      
+methods:
+    - 
+
+@author: kw
 """
+
 from matplotlib import pyplot as plt
 import math
 from random import randint
@@ -150,26 +166,26 @@ class trackGenerator():
         for i in range(len(self.trackLayout)):
             if self.trackLayout[i] == 's':
                 self.trackLayout[i] = 'x'
-                sLeft, sRight = g.calculateLaneLength()
+                sLeft, sRight = self.calculateLaneLength()
                 position.append([i, sLeft-sRight])
                 self.trackLayout[i] = 's'
         
         
         return position
     
-g = trackGenerator()
+ctg = trackGenerator()
 
-g.drawTrack()
+ctg.drawTrack()
 # print(g.checkValid())
 # t = g.buildTrack()
 # g.trackLayout = t
 # g.drawTrack()
-g.plotTrack()
-print(g.checkValid())
-print(g.calculateLaneLength())
+ctg.plotTrack()
+print(ctg.checkValid())
+print(ctg.calculateLaneLength())
 
 
-p = g.optimizeLaneChange()
+# ctg = g.optimizeLaneChange()
 
 
 # g.runOpti()
