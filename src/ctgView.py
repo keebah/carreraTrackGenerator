@@ -22,7 +22,7 @@ class ctgView(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.ctgCtrl = ctrCtrl()
+        self.ctgCtrl = ctgCtrl()
         self.ctgModel = self.ctgCtrl.ctgModel
         self.ctgModel.tracks[0]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[0]["layout"])
         self.ctgModel.tracks[1]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[1]["layout"])

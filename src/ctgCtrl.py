@@ -29,12 +29,17 @@ class ctgCtrl():
     def findTrack(self):
         
         validTracksFound = 0
-        while validTracksFound < 10:
-            trackLayout, trackString = self.randomTrack()
+        while validTracksFound < 1:
+            track = {"layout": [],
+                     "id": '',
+                     "coords": ''}
+            track["layout"], track["id"] = self.randomTrack()
+            track["coords"] = self.ctgModel.drawTrack(track["layout"])
             
-            if self.checkValid():
+            if self.ctgModel.checkValid(track):
+                track["name"] = track["id"]
                 validTracksFound += 1
-                self.validTracks.append(trackString)
+                self.ctgModel.tracks.append(track)
 
         
     def optimizeLaneChange(self):
