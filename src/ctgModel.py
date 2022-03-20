@@ -5,15 +5,17 @@ Created on Sun Mar 20 11:15:42 2022
 Carrera Track Generator Model
 
 properties:
-    - track layout: list of strings describing a carrera track layout
+    - layout: list of strings describing a carrera track layout
       - s: straight (345mm long)
       - c: corner with 60deg radius
       - x: lane change
-    - coordinates: dictionary 
+    - coords: dictionary 
       - x,y: list of coordinates used to plot the track centerline
       - xDot,yDot: list of coordinates to plot the physical part intersections
       - a: heading angle of the element
-      
+    - id: unique string of the track layout (yes I know it's kind of duplicate)
+    - name: user can dedicde on a name
+    
 methods:
     - 
 
@@ -57,34 +59,6 @@ class ctgModel():
 
         return
     
-
-                
-    def runOpti(self):
-        
-        validTracksFound = 0
-        while validTracksFound < 10:
-            trackLayout, trackString = self.buildTrack()
-            self.trackLayout = trackLayout
-            self.drawTrack()
-            if self.checkValid():
-                validTracksFound += 1
-                self.validTracks.append(trackString)
-
-        
-    def optimizeLaneChange(self):
-        # where should the second lane change go to minimize the delta between lane length
-        position = []
-        
-        for i in range(len(self.trackLayout)):
-            if self.trackLayout[i] == 's':
-                self.trackLayout[i] = 'x'
-                sLeft, sRight = self.calculateLaneLength()
-                position.append([i, sLeft-sRight])
-                self.trackLayout[i] = 's'
-        
-        
-        return position
-
     @staticmethod
     def drawTrack(trackLayout):
         def drawStraight(x, y, heading):

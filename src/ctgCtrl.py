@@ -24,6 +24,34 @@ class ctgCtrl():
         
         return
     
+
+                
+    def findTrack(self):
+        
+        validTracksFound = 0
+        while validTracksFound < 10:
+            trackLayout, trackString = self.randomTrack()
+            
+            if self.checkValid():
+                validTracksFound += 1
+                self.validTracks.append(trackString)
+
+        
+    def optimizeLaneChange(self):
+        # where should the second lane change go to minimize the delta between lane length
+        position = []
+        
+        for i in range(len(self.trackLayout)):
+            if self.trackLayout[i] == 's':
+                self.trackLayout[i] = 'x'
+                sLeft, sRight = self.calculateLaneLength()
+                position.append([i, sLeft-sRight])
+                self.trackLayout[i] = 's'
+        
+        
+        return position    
+    
+    
     def randomTrack(self):
         nS = self.ctgModel.availableParts["straight"]
         nC = self.ctgModel.availableParts["corner"]
