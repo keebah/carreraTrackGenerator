@@ -20,16 +20,14 @@ methods:
 @author: kw
 """
 
-from matplotlib import pyplot as plt
 import math
-from random import randint
-
 
 class ctgModel():
     
     def __init__(self):
         self.tracks = [{'name': 'Wohnzimmer',
                         'layout': ['s','r','r','s','r','s','l','x','l','l','l','l','l','r','l','s','l','r','r','s','s','r','r','s','s','s','s','s','s'],
+                        'id': 'srrsrslxlllllrlslrrssrrssssss',
                         'coords': {'x': [],
                                    'y': [],
                                    'xDot': [],
@@ -37,6 +35,7 @@ class ctgModel():
                                    'a': []}},
                        {'name': 'Evolution',
                         'layout': ['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s'],
+                        'id': 'ssllllsssrsrrrss',
                         'coords': {'x': [],
                                    'y': [],
                                    'xDot': [],
@@ -44,6 +43,7 @@ class ctgModel():
                                    'a': []}},          
                        {'name': 'SmallCircle',
                         'layout': ['s','l','l','l','s','l','l','l'],
+                        'id': 'slllslll',
                         'coords': {'x': [],
                                    'y': [],
                                    'xDot': [],
@@ -57,30 +57,7 @@ class ctgModel():
 
         return
     
-    def buildTrack(self):
-        nS = self.availableParts["straight"]
-        nC = self.availableParts["corner"]
-        nX = self.availableParts["laneChange"]
-        track = ''
-        while len(track) < 30:
-            r = randint(0,3)
-            if r == 0:
-                if nS:
-                    nS -= 1
-                    track += 's'
-            elif r == 1:
-                if nC:
-                    nC -= 1
-                    track += 'l'
-            elif r == 2:
-                if nC:
-                    nC -= 1
-                    track += 'r'
-            elif r == 3:
-                if nX:
-                    nX -= 1
-                    track += 'x'
-        return [char for char in track], track
+
                 
     def runOpti(self):
         

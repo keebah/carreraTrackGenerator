@@ -4,6 +4,7 @@ GUI for the carrera Track Generator
 """
 
 from .ctgModel import ctgModel
+from .ctgCtrl import ctgCtrl
 
 from PyQt5.QtWidgets import (QMainWindow, QListWidget,
                              QGridLayout)
@@ -21,7 +22,8 @@ class ctgView(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.ctgModel = ctgModel()
+        self.ctgCtrl = ctrCtrl()
+        self.ctgModel = self.ctgCtrl.ctgModel
         self.ctgModel.tracks[0]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[0]["layout"])
         self.ctgModel.tracks[1]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[1]["layout"])
         self.ctgModel.tracks[2]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[2]["layout"])
