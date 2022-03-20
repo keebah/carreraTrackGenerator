@@ -76,25 +76,7 @@ class ctgModel():
         
         plt.show()
    
-    def calculateLaneLength(self):
-        leftLane = 0
-        rightLane = 0
-        for elem in self.trackLayout:
-            if elem == 's':
-                leftLane += 345
-                rightLane += 345
-            if elem == 'l':
-                leftLane += 259.2
-                rightLane += 362.9
-            if elem == 'r':
-                leftLane += 362.9
-                rightLane += 259.2
-            if elem == 'x':
-                temp = rightLane
-                rightLane = leftLane + 364.2
-                leftLane = temp + 364.2
-                
-        return leftLane, rightLane
+
     
 
 
@@ -203,3 +185,24 @@ class ctgModel():
                    return True
            
         return False
+    
+    @staticmethod
+    def calculateLaneLength(track):
+        leftLane = 0
+        rightLane = 0
+        for elem in track["layout"]:
+            if elem == 's':
+                leftLane += 345
+                rightLane += 345
+            if elem == 'l':
+                leftLane += 259.2
+                rightLane += 362.9
+            if elem == 'r':
+                leftLane += 362.9
+                rightLane += 259.2
+            if elem == 'x':
+                temp = rightLane
+                rightLane = leftLane + 364.2
+                leftLane = temp + 364.2
+                
+        return leftLane, rightLane
