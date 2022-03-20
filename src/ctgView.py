@@ -25,6 +25,9 @@ class ctgView(QMainWindow):
         self.ctgCtrl = ctgCtrl()
         self.ctgModel = self.ctgCtrl.ctgModel
         self.ctgModel.tracks[0]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[0]["layout"])
+        l,r,c = self.ctgModel.calculateLength(self.ctgModel.tracks[0]["layout"])
+        self.ctgModel.tracks[0]["length"] = {'left': l, 'right': r, 'center': c}
+        
         self.ctgModel.tracks[1]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[1]["layout"])
         self.ctgModel.tracks[2]["coords"] = self.ctgModel.drawTrack(self.ctgModel.tracks[2]["layout"])
         
@@ -35,7 +38,7 @@ class ctgView(QMainWindow):
         
         self.gui = {}
 
-        self.currentTrack = {}
+        self.currentTrack = {"name": "", "length": {"left", "right", "center"}}
         
         self.initUI()
 
@@ -68,7 +71,7 @@ class ctgView(QMainWindow):
     def trackListClicked(self):
         idx = self.gui["trackList"].currentIndex().row()
         self.currentTrack = self.ctgModel.tracks[idx]
-        
+        self.gui["trackProps"].updateLabels()
         return
     
     def toggleWindow(self, window):

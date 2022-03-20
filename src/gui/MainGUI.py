@@ -13,7 +13,7 @@ class MainGUI(QWidget):
         ctgView.gui["trackList"].clicked.connect(ctgView.trackListClicked)
         
         
-        ctgView.gui["trackProps"] = TrackProperties()
+        ctgView.gui["trackProps"] = TrackProperties(ctgView)
         
         layout = QGridLayout()
         layout.addWidget(ctgView.gui["trackList"], 0, 0, 1, 1)

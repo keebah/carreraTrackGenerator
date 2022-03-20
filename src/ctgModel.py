@@ -34,7 +34,8 @@ class ctgModel():
                                    'y': [],
                                    'xDot': [],
                                    'yDot': [],
-                                   'a': []}},
+                                   'a': []},
+                        'length': {'left','right','center'}},
                        {'name': 'Evolution',
                         'layout': ['s','s','l','l','l','l','s','s','s','r','s','r','r','r','s','s'],
                         'id': 'ssllllsssrsrrrss',
@@ -42,7 +43,8 @@ class ctgModel():
                                    'y': [],
                                    'xDot': [],
                                    'yDot': [],
-                                   'a': []}},          
+                                   'a': []},
+                        'length': {'left','right','center'}},         
                        {'name': 'SmallCircle',
                         'layout': ['s','l','l','l','s','l','l','l'],
                         'id': 'slllslll',
@@ -50,7 +52,8 @@ class ctgModel():
                                    'y': [],
                                    'xDot': [],
                                    'yDot': [],
-                                   'a': []}},                        
+                                   'a': []},
+                        'length': {'left','right','center'}},                       
                        ]
         
         self.availableParts = {'straight': 12,
@@ -117,22 +120,27 @@ class ctgModel():
         return False
     
     @staticmethod
-    def calculateLaneLength(track):
+    def calculateLength(track):
         leftLane = 0
         rightLane = 0
+        centerLine = 0
         for elem in track["layout"]:
             if elem == 's':
                 leftLane += 345
                 rightLane += 345
+                centerLine += 345
             if elem == 'l':
+                centerLine += 311.05
                 leftLane += 259.2
                 rightLane += 362.9
             if elem == 'r':
+                centerLine += 311.05
                 leftLane += 362.9
                 rightLane += 259.2
             if elem == 'x':
+                centerLine += 345
                 temp = rightLane
                 rightLane = leftLane + 364.2
                 leftLane = temp + 364.2
                 
-        return leftLane, rightLane
+        return leftLane, rightLane, centerLine
