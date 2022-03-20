@@ -6,8 +6,7 @@ GUI for the carrera Track Generator
 from .ctgModel import ctgModel
 from .ctgCtrl import ctgCtrl
 
-from PyQt5.QtWidgets import (QMainWindow, QListWidget,
-                             QGridLayout)
+from PyQt5.QtWidgets import (QMainWindow)
 
 
 import matplotlib
@@ -16,6 +15,7 @@ matplotlib.use('Qt5Agg')
 
 from .gui.TrackPlotter import TrackPlotter
 from .gui.MenuBar import MenuBar
+from .gui.MainGUI import MainGUI
 
 class ctgView(QMainWindow):
 
@@ -51,23 +51,16 @@ class ctgView(QMainWindow):
         self.windows = {"trackplt": TrackPlotter(self)}
 
         # track list
-        self.gui["trackList"] = QListWidget()        
-        for iTrack in range(len(self.ctgModel.tracks)):
-            self.gui["trackList"].insertItem(iTrack,self.ctgModel.tracks[iTrack]["name"])
-            
-        self.gui["trackList"].clicked.connect(self.trackListClicked)
+
         
         # menubar
         MenuBar(self)
         
         
         # main window ocntent
-        layout = QGridLayout()
-        self.setLayout(layout)
-        self.setCentralWidget(self.gui["trackList"] )        
+        self.setCentralWidget(MainGUI(self))        
 
         
-        self.setLayout(layout)
         self.show()
         
         return
@@ -83,13 +76,9 @@ class ctgView(QMainWindow):
             window.hide()
         else:
             window.show()
-
         return
 
-    
-    
     def findTrack(self):
         self.ctgCtrl.findTrack()
         self.gui["trackList"].insertItem(len(self.ctgModel.tracks), 
                                          self.ctgModel.tracks[len(self.ctgModel.tracks)-1]["name"])
-
