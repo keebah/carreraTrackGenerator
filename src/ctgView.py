@@ -23,6 +23,7 @@ class ctgView(QMainWindow):
         super().__init__()
         
         self.ctgModel = ctgModel()
+        self.ctgModel.drawTrack()
         self.initUI()
 
     def initUI(self):
