@@ -103,12 +103,16 @@ class ctgModel():
         return  {"x": x, "y": y, "a": heading, "xDot": xDot, "yDot": yDot}
 
     @staticmethod
-    def checkValid(track):
+    def checkValid(track, forceCrossing):
         if len(track["layout"]) >= 8:
             if abs(track["coords"]["x"][-1]) < 10 and \
-               abs(track["coords"]["y"][-1]) < 10 and \
-               abs(track["coords"]["a"][-1] % (2*math.pi)) < 10:
-                   return True
+               abs(track["coords"]["y"][-1]) < 10:
+                   if forceCrossing:
+                       if abs(track["coords"]["a"][-1]) < 1:
+                           return True
+                   else:
+                       if abs(track["coords"]["a"][-1] % (2*math.pi)) < 1:
+                           return True
            
         return False
     

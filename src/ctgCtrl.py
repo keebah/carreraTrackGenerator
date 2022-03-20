@@ -22,8 +22,8 @@ class ctgCtrl():
         
         self.ctgModel = ctgModel()
         
+        self.settings = {"forceTrackCrossing": True}
         return
-    
 
                 
     def findTrack(self):
@@ -36,7 +36,7 @@ class ctgCtrl():
             track["layout"], track["id"] = self.randomTrack()
             track["coords"] = self.ctgModel.drawTrack(track["layout"])
             
-            if self.ctgModel.checkValid(track):
+            if self.ctgModel.checkValid(track, self.settings["forceTrackCrossing"]):
                 track["name"] = track["id"]
                 validTracksFound += 1
                 self.ctgModel.tracks.append(track)
