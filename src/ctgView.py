@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Analysegui für UroFlow Daten
-
+GUI for the carrera Track Generator
 """
-import sys
-import os
 
 from .ctgModel import ctgModel
 
@@ -16,11 +13,9 @@ from PyQt5.QtGui import QIcon
 
 import matplotlib
 matplotlib.use('Qt5Agg')
-from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg)
-from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 
 
+from .gui.TrackPlotter import TrackPlotter
 
 class ctgView(QMainWindow):
 
@@ -32,22 +27,22 @@ class ctgView(QMainWindow):
 
     def initUI(self):
         
-        self.windows = {"trackplt": TrackPlotter()}
+        self.windows = {"trackplt": TrackPlotter(self.ctgModel.coordinates)}
         
         self.setGeometry(300, 400, 1024, 768)
         self.setWindowTitle('Carrera Track Generator')
         
         # menubar
-        openFile = QAction(QIcon('stock_imagemap-editor.png'), 'Show Map', self)
-        openFile.setStatusTip('Track Map')
-        openFile.triggered.connect(
+        showMap = QAction(QIcon('stock_imagemap-editor.png'), 'Show Map', self)
+        showMap.setStatusTip('Track Map')
+        showMap.triggered.connect(
             lambda checked: self.toggleWindow(self.windows["trackplt"])
             )
         
         
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&View')
-        fileMenu.addAction(openFile)        
+        fileMenu.addAction(showMap)        
         
         
         self.show()
@@ -63,23 +58,3 @@ class ctgView(QMainWindow):
 
 
 
-
-class TrackPlotter(QWidget):
-    
-    def __init__(self):
-        super().__init__()
-        self.layout = QVBoxLayout(self)
-        self.setWindowTitle = 'Track Plotter'
-        
-        self.plotArea = MplCanvas(self, width=5, height=4, dpi=100)
-        self.layout.addWidget(self.plotArea)
-        self.setLayout(self.layout)
-
-class MplCanvas(FigureCanvasQTAgg):
-
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes1 = fig.add_subplot(111)
-        self.setWindowTitle = 'Track Plotter'
-
-        super(MplCanvas, self).__init__(fig)
