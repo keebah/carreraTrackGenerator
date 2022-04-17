@@ -53,7 +53,16 @@ class ctgModel():
                                    'xDot': [],
                                    'yDot': [],
                                    'a': []},
-                        'length': {'left','right','center'}},                              
+                        'length': {'left','right','center'}},         
+                       {'name': 'Wohnzimmer2',
+                        'layout': ['s','s','r','r','s','s','l','l','l','l','l','r','x','l','s','l','l','r','s','r','r','s','x','s','r','r','s','s','s','s'],
+                        'id': 'ssrrsslllllrxlsllrsrrsxsrrssss',
+                        'coords': {'x': [],
+                                   'y': [],
+                                   'xDot': [],
+                                   'yDot': [],
+                                   'a': []},
+                        'length': {'left','right','center'}},                          
                        ]
         
         self.availableParts = {'straight': 12,
@@ -64,15 +73,16 @@ class ctgModel():
     
     @staticmethod
     def drawTrack(trackLayout):
-        def drawStraight(x, y, heading):
+        def drawStraight(x, y, s, heading):
             length = 345
+            s.append(s[-1] + length)
             x.append(x[-1] + length * math.sin(heading[-1]))
             y.append(y[-1] + length * math.cos(heading[-1]))
             heading.append(heading[-1])
             
-            return x, y, heading
+            return x, y, s, heading
         
-        def drawCorner(x, y, heading, direction):
+        def drawCorner(x, y, s, heading, direction):
             length = 311.05
             drawSteps = 6
             # draw a cricle in steps of 10deg => 60deg total for corner
@@ -83,11 +93,13 @@ class ctgModel():
                     heading.append(heading[-1] + 1/drawSteps * math.pi/3)
                     
                 meanHeading = (heading[-2]+heading[-1])/2
+                s.append(s[-1] + length/drawSteps)
                 x.append(x[-1] + length/drawSteps * math.sin(meanHeading))
                 y.append(y[-1] + length/drawSteps * math.cos(meanHeading))
                 
-            return x, y, heading        
+            return x, y, s, heading        
         
+        s = [0]
         x = [0]
         y = [0]
         heading = [0]
@@ -95,19 +107,19 @@ class ctgModel():
         yDot = [0]
         for elem in trackLayout:
             if elem == 's':
-                x, y, heading = drawStraight(x, y, heading)
+                x, y, s, heading = drawStraight(x, y, heading)
             elif elem == 'x':
-                x, y, heading = drawStraight(x, y, heading)
+                x, y, s, heading = drawStraight(x, y, heading)
                 xDot.append((x[-1]-x[-2])/2+x[-2])
                 yDot.append((y[-1]-y[-2])/2+y[-2])                
             else:
-                x, y, heading = drawCorner(x, y, heading, elem)
+                x, y, s, heading = drawCorner(x, y, heading, elem)
                 
             xDot.append(x[-1])
             yDot.append(y[-1])
      
         
-        return  {"x": x, "y": y, "a": heading, "xDot": xDot, "yDot": yDot}
+        return  {"x": x, "y": y, "a": heading, "s": s, "xDot": xDot, "yDot": yDot}
 
     @staticmethod
     def checkValid(track, forceCrossing):

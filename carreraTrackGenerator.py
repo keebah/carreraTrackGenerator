@@ -8,10 +8,11 @@ Carrera Track Generator
 """
 import sys
 
+
 from PyQt5.QtWidgets import (QApplication)
 from src.ctgView import ctgView
 
-
-app = QApplication(sys.argv)
-ex = ctgView()
-sys.exit(app.exec_())
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = ctgView()
+    sys.exit(app.exec_())
