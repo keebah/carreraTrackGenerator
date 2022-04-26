@@ -6,8 +6,9 @@ GUI for the carrera Track Generator
 from .ctgModel import ctgModel
 from .ctgCtrl import ctgCtrl
 
-from PyQt5.QtWidgets import (QMainWindow)
+from PyQt5.QtWidgets import (QMainWindow, QFileDialog)
 
+import json
 
 import matplotlib
 matplotlib.use('Qt5Agg')
@@ -91,3 +92,9 @@ class ctgView(QMainWindow):
         self.windows["trackplt"].clearMap()
         self.windows["trackplt"].plotMap()
         self.gui["trackProps"].updateLabels()
+
+    def exportTrack(self):
+        name = QFileDialog.getSaveFileName(self, 'Save File')
+        with open(name[0], 'w') as outfile:
+            json.dump(self.currentTrack, outfile)        
+        return

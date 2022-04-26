@@ -19,7 +19,11 @@ def MenuBar(self):
     findTrack = QAction(QIcon('stock_imagemap-editor.png'), 'Find Track', self)
     findTrack.setStatusTip('Generate random track based on available parts')
     findTrack.triggered.connect(self.findTrack)
-        
+
+    saveTrack = QAction(QIcon('stock_imagemap-editor.png'), 'Save Track', self)
+    saveTrack.setStatusTip('Save Track to file')
+    saveTrack.triggered.connect(self.exportTrack)
     
     fileMenu = menubar.addMenu('&Track')
     fileMenu.addAction(findTrack)          
+    fileMenu.addAction(saveTrack)

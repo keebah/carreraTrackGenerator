@@ -69,7 +69,7 @@ class ctgCtrl():
         
         
         return position    
-    
+
     
     def randomTrack(self):
         nS = self.ctgModel.availableParts["straight"]

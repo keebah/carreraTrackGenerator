@@ -107,13 +107,13 @@ class ctgModel():
         yDot = [0]
         for elem in trackLayout:
             if elem == 's':
-                x, y, s, heading = drawStraight(x, y, heading)
+                x, y, s, heading = drawStraight(x, y, s, heading)
             elif elem == 'x':
-                x, y, s, heading = drawStraight(x, y, heading)
+                x, y, s, heading = drawStraight(x, y, s, heading)
                 xDot.append((x[-1]-x[-2])/2+x[-2])
                 yDot.append((y[-1]-y[-2])/2+y[-2])                
             else:
-                x, y, s, heading = drawCorner(x, y, heading, elem)
+                x, y, s, heading = drawCorner(x, y, s, heading, elem)
                 
             xDot.append(x[-1])
             yDot.append(y[-1])
